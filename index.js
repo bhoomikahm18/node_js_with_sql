@@ -6,7 +6,8 @@ let app = express();
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "root123"
+    password: "root123",
+    database: 'nodemysql'
 });
 
 db.connect(err => {
@@ -21,10 +22,36 @@ db.connect(err => {
 app.get('/createdb', (req, res) => {
     let sql = 'CREATE DATABASE nodemysql';
     db.query(sql, err => {
-        if(err){
+        if (err) {
             return err;
         }
         res.send('database created');
     })
 })
+
+app.get('/createemployee', (req, res) => {
+    let sql = 'CREATE TABLE employee(id INT AUTO_INCREMENT, name VARCHAR(50), designation VARCHAR(50), PRIMARY KEY(id))';
+    db.query(sql, err => {
+        if (err) {
+            return err;
+        }
+        res.send('Employee Table created');
+    })
+})
+
+// app.get('/employee1', (req, res) => {
+//     let post = {
+//         name: 'Bhoomi',
+//         designation: 'Developer',
+//     }
+//     let sql = 'INSERT INTO employee SET ?';
+//     let query = db.query(sql, post, err => {
+//         if (err) {
+//             return err;
+//         }
+//         res.send('Employee Added');
+//     })
+// })
+
+
 
