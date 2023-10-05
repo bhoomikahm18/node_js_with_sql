@@ -64,5 +64,14 @@ app.get('/getemployee', (req, res) => {
     })
 })
 
-
+app.get('/updateemployee/:id', (req, res) => {
+    let newName = 'Updated name';
+    let sql = `UPDATE employee SET name = '${newName}' WHERE id = ${req.params.id}`;
+    db.query(sql, err => {
+        if (err) {
+            return err;
+        }
+        res.send('Employee details updated');
+    })
+})
 
